@@ -1,4 +1,5 @@
 <?php
+
   try
   {
     $bdd = new PDO('mysql:host=localhost;dbname=gsb_frais', 'root', '');
@@ -7,7 +8,5 @@
   {
     die("Erreur : " . $e_>getMessage());
   }
-
-
-
+  
 ?>
