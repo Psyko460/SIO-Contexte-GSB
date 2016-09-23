@@ -5,7 +5,7 @@
   }
   catch (Exception $e)
   {
-    die('Erreur : ' . $e_>getMessage());
+    die("Erreur : " . $e_>getMessage());
   }
 
 
