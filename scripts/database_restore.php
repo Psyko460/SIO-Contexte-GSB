@@ -2,7 +2,7 @@
 
   try
   {
-    $restore = shell_exec(`mysql --user=root --password=root < /var/www/GSBProject/scripts/backupDatabase.sql`);
+    $restore = shell_exec(`mysql --user=root --password=ArtemisLL < /var/www/GSBProject/scripts/backupDatabase.sql`);
 
     echo('Base de données correctement importée !');
   }

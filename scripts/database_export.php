@@ -2,7 +2,7 @@
 
   try
   {
-    $output = shell_exec(`mysqldump --default-character-set=UTF8 --user=root --password=root gsb_frais > /var/www/GSBProject/scripts/backupDatabase.sql`);
+    $output = shell_exec(`mysqldump --default-character-set=UTF8 --user=root --password=ArtemisLL gsb_frais > /var/www/GSBProject/scripts/backupDatabase.sql`);
 
     echo('Base de données correctement sauvegardée !');
   }
