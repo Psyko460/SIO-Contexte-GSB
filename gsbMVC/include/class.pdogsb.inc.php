@@ -121,7 +121,7 @@ class PdoGsb{
  * @return un tableau associatif
 */
 	public function getLesIdFrais(){
-		$req = "'select FraisForfait.id as idfrais from FraisForfait order by FraisForfait.id";
+		$req = "select FraisForfait.id as idfrais from FraisForfait order by FraisForfait.id";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesLignes = $res->fetchAll();
 		return $lesLignes;
