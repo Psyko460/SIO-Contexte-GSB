@@ -9,7 +9,7 @@
 	{
 		case 'demandeConnexion':
 		{
-			include("vues/v_connexion.php");
+			include("./vues/v_connexion.php");
 			break;
 		}
 		case 'valideConnexion':
