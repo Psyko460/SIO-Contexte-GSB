@@ -46,20 +46,43 @@ class PdoGsb{
 		}
 		return PdoGsb::$monPdoGsb;
 	}
-/**
- * Retourne les informations d'un visiteur
+  /**
+   * Retourne les informations d'un visiteur
 
- * @param $login
- * @param $mdp
- * @return l'id, le nom et le prénom sous la forme d'un tableau associatif
-*/
-	public function getInfosVisiteur($login, $mdp){
-		$req = "select Visiteur.id as id, Visiteur.nom as nom, Visiteur.prenom as prenom from Visiteur
-		where Visiteur.login='$login' and Visiteur.mdp='$mdp'";
-		$rs = PdoGsb::$monPdo->query($req);
-		$ligne = $rs->fetch();
-		return $ligne;
-	}
+   * @param $login
+   * @param $mdp
+   * @return l'id, le nom et le prénom sous la forme d'un tableau associatif
+  */
+  	public function getInfosVisiteur($login, $mdp){
+  		$req = "select Visiteur.id as id, Visiteur.nom as nom, Visiteur.prenom as prenom, Visiteur.mdp from Visiteur
+  		where Visiteur.login='$login'";
+  		$rs = PdoGsb::$monPdo->query($req);
+  		$ligne = $rs->fetch();
+      if (password_verify($mdp, $ligne['mdp'])) {
+        return $ligne;
+      }
+  	}
+
+    /**
+     * Encrypte les mots de passe dans la base de donnée et change Visiteur.mdp CHAR(30->255)
+
+     * @return Les requêtes executées
+    */
+    	public function cryptPasswordDb(){
+        $alter = "ALTER TABLE `Visiteur` CHANGE COLUMN `mdp` `mdp` CHAR(255) NULL DEFAULT NULL AFTER `login`";
+        PdoGsb::$monPdo->query($alter);
+        $req = "select id, mdp from Visiteur";
+        $rs = PdoGsb::$monPdo->query($req);
+        $value = "";
+        foreach ($rs->fetchAll() as $row) {
+          $id = $row['id'];
+          $pwd = password_hash($row['mdp'], PASSWORD_BCRYPT);
+          $req2= "UPDATE `Visiteur` SET `mdp`='$pwd' WHERE `id`='$id';";
+          $value .= $req2 . '<br>';
+          $rs2 = PdoGsb::$monPdo->query($req2);
+        }
+        return $value;
+    	}
 
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
