@@ -1,19 +1,25 @@
 <?php
     include("vues/v_sommaire.php");
-    $mois = getMois(date("d/m/Y"));
+    $mois = getMois(date("d:m:Y"));
     $action = $_REQUEST['action'];
-
+    
     switch($action)
     {
-        case 'validFrais':
+        case 'selectVisitor':
         {
             $lesVisiteurs = $pdo->getLesVisiteurs();
-            
-            $idVisiteur = $_POST['lstVisiteur'];
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois);
-            $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$leMois);
-            $lesFichesFrais = $pdo->getLesInfosfichefrais($idVisiteur, $leMois);
             //$etatFicheFrais = $pdo->getEtatFicheFrais($idVisiteur, $leMois);
+            include("vues/v_listeVisiteurs.php");
+            break;
+        }
+        case 'checkFrais':
+        {
+            $idVisiteur = $_REQUEST['currentVisitor'];
+            $lesVisiteurs = $pdo->getLesVisiteurs();
+            include("vues/v_listeVisiteurs.php");
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);
+            $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$mois);
+            $lesFichesFrais = $pdo->getLesInfosfichefrais($idVisiteur, $mois);
             include("vues/v_validationFrais.php");
             break;
         }
@@ -22,5 +28,4 @@
             break;
         }
     }
-
 ?>
