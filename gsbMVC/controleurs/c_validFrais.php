@@ -23,7 +23,7 @@
             include("vues/v_validationFrais.php");
             break;
         }
-        case 'confirmerValidationFrais':
+        case 'confirmValidationFrais':
         {
             break;
         }
