@@ -2,7 +2,7 @@
     <h2>Suivi du paiement des fiches de frais</h2>
 
         <div class="corpsForm">
-            <form method="POST" action="index.php?uc=validationFrais&amp;action=fraisDetails">
+            <form method="POST" action="index.php?uc=suiviFrais&amp;action=fraisDetails">
                 <p>Choisir le visiteur :</p>
                 <select name="currentVisitor">
                     <?php

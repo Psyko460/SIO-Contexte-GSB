@@ -1,4 +1,4 @@
-            <form method="POST" action="index.php?uc=validFrais&amp;action=confirmerValidationFrais">   
+            <form method="POST" action="index.php?uc=validFrais&amp;action=confirmerValidationFrais">
                 <table class="listeLegere">
                 <caption>Frais au forfait</caption>
                 <tr>
@@ -16,7 +16,6 @@
                             $montant=$unFraisForfait['montant'];
                             $id = $unFraisForfait['id'];
                     ?>
-
                 <tr>
                     <td> <?php echo $date ?></td>
                     <td><?php echo $libelle ?></td>
@@ -39,17 +38,9 @@
                     <?php
                         foreach($lesFraisHorsForfait as $unFraisHorsForfait)
                         {
-                            $libelle = $unFraisHorsForfait['libelle'];
-                            $date = $unFraisHorsForfait['date'];
-                            $montant=$unFraisHorsForfait['montant'];
-                    ?>
-
-                <tr>
-                    <td> <?php echo $date ?></td>
-                    <td><?php echo $libelle ?></td>
-                    <td><?php echo $montant ?></td>
-                </tr>
-                    <?php
+                            echo '<tr><td>'.$unFraisHorsForfait['date'].'</td>';
+                            echo '<td>'.$unFraisHorsForfait['libelle'].'</td>';
+                            echo '<td>'.$unFraisHorsForfait['montant'].'</td></tr>';
                         }
                     ?>
 
@@ -63,17 +54,10 @@
                     <th class="situation">Situation</th>
                 </tr>
                     <?php
-                        $nbJustificatifs = $lesFichesFrais['nbJustificatifs'];
-                        $montant = $lesFichesFrais['montantValide'];
-                        $situation = $lesFichesFrais['idEtat'];
+                        echo '<tr><td>'.$lesFichesFrais['nbJustificatifs'].'</td>';
+                        echo '<td>'.$lesFichesFrais['montantValide'].'</td>';
+                        echo '<td>'.$lesFichesFrais['libEtat'].'</td></tr>';
                     ?>
-
-                <tr>
-                    <td> <?php echo $nbJustificatifs ?></td>
-                    <td><?php echo $montant ?></td>
-                    <td><?php echo $situation ?></td>
-                </tr>
-
                 </table>
             </div>
 
