@@ -34,6 +34,11 @@
     {
             session_destroy();
     }
+
+    function setSelectedVisitor($id)
+    {
+        $_SESSION['currentVisitor'] = $id;
+    }
 /**
  * Transforme une date au format français jj/mm/aaaa vers le format anglais aaaa-mm-jj
 
