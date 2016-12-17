@@ -20,8 +20,8 @@
 
             if (!$pdo->estPremierFraisMois($idVisiteur, $mois))
             {
-                $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$mois);
-                $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);
+                $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur, $mois);
+                $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
                 include("vues/v_listeFraisForfaitComptable.php");
                 include("vues/v_listeFraisHorsForfaitComptable.php");
             }
@@ -41,8 +41,8 @@
 
             $lesVisiteurs = $pdo->getLesVisiteurs();
             include("vues/v_listeVisiteurs.php");
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);
-            $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$mois);
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
+            $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur, $mois);
             include("vues/v_listeFraisForfaitComptable.php");
             include("vues/v_listeFraisHorsForfaitComptable.php");
             break;
@@ -57,8 +57,8 @@
             $idVisiteur = $_SESSION['currentVisitor'];
             $lesVisiteurs = $pdo->getLesVisiteurs();
             include("vues/v_listeVisiteurs.php");
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);
-            $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$mois);
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
+            $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur, $mois);
             include("vues/v_listeFraisForfaitComptable.php");
             include("vues/v_listeFraisHorsForfaitComptable.php");
             break;
@@ -71,8 +71,8 @@
 
             $lesVisiteurs = $pdo->getLesVisiteurs();
             include("vues/v_listeVisiteurs.php");
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);
-            $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$mois);
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
+            $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur, $mois);
             include("vues/v_listeFraisForfaitComptable.php");
             include("vues/v_listeFraisHorsForfaitComptable.php");
             break;

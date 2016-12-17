@@ -3,7 +3,7 @@
 
         <div class="corpsForm">
             <form method="POST" action="index.php?uc=suiviFrais&amp;action=fraisDetails">
-                <p>Choisir le visiteur :</p>
+                <h3>Choisir le visiteur :</h3>
                 <select name="currentVisitor">
                     <?php
                         foreach ($lesVisiteurs as $visiteur)
