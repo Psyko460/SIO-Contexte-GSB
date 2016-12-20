@@ -1,6 +1,6 @@
 <?php
     include("vues/v_sommaire.php");
-    $mois = getMois(date("d:m:Y"));
+    $mois = getMois(date("d-m-Y"));
     $action = $_REQUEST['action'];
 
     switch($action)
@@ -50,11 +50,15 @@
         case 'deleteFicheHorsForfait':
         {
             $idLigneHorsForfait = $_GET['ficheIDToDelete'];
-            $pdo->supprimerFraisHorsForfait($idLigneHorsForfait);
-
-            // Manque partie 8 du cas d'utilisation "Valider fiche de frais"
-
             $idVisiteur = $_SESSION['currentVisitor'];
+            $nextMonth = getMois(date('d-m-Y', strtotime('+1 month')));
+
+            if ($pdo->estPremierFraisMois($idVisiteur, $nextMonth))
+            {
+                $pdo->creeNouvellesLignesFrais($idVisiteur, $nextMonth);
+            }
+            $pdo->majLibelleLigneFraisHorsForfait($idLigneHorsForfait, $nextMonth);
+
             $lesVisiteurs = $pdo->getLesVisiteurs();
             include("vues/v_listeVisiteurs.php");
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);

@@ -300,7 +300,6 @@
             if ($laDerniereFiche['idEtat']=='CR')
             {
                 $this->majEtatfichefrais($idVisiteur, $dernierMois,'CL');
-
             }
 
             $req = "INSERT INTO fichefrais(idVisiteur,mois,nbJustificatifs,montantValide,dateModif,idEtat)
@@ -342,7 +341,7 @@
         */
         public function supprimerFraisHorsForfait($idFrais)
         {
-            $req = "DELETE FROM LigneFraisHorsForfait WHERE LigneFraisHorsForfait.id=$idFrais ";
+            $req = "DELETE FROM LigneFraisHorsForfait WHERE LigneFraisHorsForfait.id='$idFrais'";
             PdoGsb::$monPdo->exec($req);
         }
 
@@ -404,6 +403,20 @@
         {
             $req = "UPDATE fichefrais SET idEtat='$etat', dateModif = now()
             WHERE fichefrais.idVisiteur ='$idVisiteur' AND fichefrais.mois='$mois'";
+            PdoGsb::$monPdo->exec($req);
+        }
+
+        /**
+         * Modifie le libellé d'une ligne de frais hors forfait
+
+         * Modifie le champ libelle avec "REFUSE" au début
+         * @param $idFrais
+         */
+
+        public function majLibelleLigneFraisHorsForfait($idFrais, $nextMonth)
+        {
+            $req = "UPDATE lignefraishorsforfait SET libelle=CONCAT('REFUSE-', libelle), mois='$nextMonth'
+            WHERE id='$idFrais'";
             PdoGsb::$monPdo->exec($req);
         }
     }

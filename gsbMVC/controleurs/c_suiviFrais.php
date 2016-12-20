@@ -1,6 +1,6 @@
 <?php
     include("vues/v_sommaire.php");
-    $mois = getMois(date("d:m:Y"));
+    $mois = getMois(date("d-m-Y"));
     $action = $_REQUEST['action'];
 
     switch($action)
