@@ -1,0 +1,26 @@
+            <form method="POST" action="index.php?uc=validationFrais&amp;action=updateFicheFrais">
+                <table class="listeLegere">
+                <caption>Frais au forfait</caption>
+                <tr>
+                    <th class="etape">Forfait étape</th>
+                    <th class="kilometre">Frais kilométrique</th>
+                    <th class="nuitee">Nuitée hôtel</th>
+                    <th class="repas_midi">Repas restaurant</th>
+                </tr>
+                <tr>
+                    <?php
+                        foreach($lesFraisForfait as $unFraisForfait)
+                        {
+                            echo '<td><input type="text" name="lesFrais['.$unFraisForfait['idfrais'].']" value="'.$unFraisForfait['quantite'].'" size="15"></td>';
+                        }
+                    ?>
+                </tr>
+                </table>
+
+                <div class="piedForm">
+                    <p>
+                        <input type="submit" value="Mettre à jour" size="20" />
+                    </p>
+                </div>
+            </form>
+
