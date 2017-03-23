@@ -328,9 +328,8 @@
         */
         public function creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$date,$montant)
         {
-            $dateFr = dateFrancaisVersAnglais($date);
-            $req = "INSERT INTO LigneFraisHorsForfait
-            VALUES('$idVisiteur','$mois','$libelle','$date','$montant')";
+            $req = "INSERT INTO LigneFraisHorsForfait (idVisiteur, mois, libelle, date, montant)
+            VALUES('$idVisiteur','$mois','$libelle','$date',$montant)";
             PdoGsb::$monPdo->exec($req);
         }
 

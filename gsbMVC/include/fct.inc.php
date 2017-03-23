@@ -133,7 +133,7 @@
 */
     function estDateValide($date)
     {
-        $tabDate = explode('/',$date);
+        $tabDate = explode('-',$date);
         $dateOK = true;
         if (count($tabDate) != 3)
         {
@@ -147,7 +147,7 @@
             }
             else
             {
-                if (!checkdate($tabDate[1], $tabDate[0], $tabDate[2]))
+                if (!checkdate($tabDate[1], $tabDate[2], $tabDate[0]))
                 {
                     $dateOK = false;
                 }
