@@ -7,28 +7,33 @@
     	<table class="listeLegere">
     	  <caption>Eléments forfaitisés</caption>
         <tr>
-        <?php
-        foreach ($lesFraisForfait as $unFraisForfait)
-  		  {
-  			  $libelle = $unFraisForfait['libelle'];
-  		  ?>
-  			<th><?php echo $libelle ?></th>
-  		  <?php
-        }
-  		  ?>
+
+         <th class="etape">Frais forfaitaires</th>
+         <th class="kilometre">Quantité</th>
+         <th class="nuitee">Montant unitaire</th>
+         <th class="repas_midi">Total</th>
+
   		  </tr>
         <tr>
-        <?php
-        foreach ($lesFraisForfait as $unFraisForfait)
-  		  {
-  			  $quantite = $unFraisForfait['quantite'];
+
+            <?php
+               $totalFraisForfait = 0;
+                foreach($lesFraisForfait as $unFraisForfait)
+                {
+                    echo '<td>'.$unFraisForfait['libelle'].'</td>';
+                    echo '<td>'.$unFraisForfait['quantite'].'</td>';
+                    echo '<td>'.$unFraisForfait['montant'].'</td>';
+                    echo '<td>'.$unFraisForfait['total'].'</td></tr>';
+                    $totalFraisForfait += $unFraisForfait['total'];
+               }
   		  ?>
-        <td class="qteForfait"><?php echo $quantite ?></td>
-  		  <?php
-        }
-  		  ?>
+
   		  </tr>
       </table>
+
+      <p>
+         Total frais forfaitisés : <?php echo $totalFraisForfait ?>
+      </p>
 
     	<table class="listeLegere">
     	  <caption>Descriptif des éléments hors forfait -<?php echo $nbJustificatifs ?> justificatifs reçus -</caption>
@@ -38,20 +43,25 @@
           <th class='montant'>Montant</th>
         </tr>
         <?php
+         $totalFraisHorsForfait = 0;
           foreach ($lesFraisHorsForfait as $unFraisHorsForfait)
   		    {
-      			$date = $unFraisHorsForfait['date'];
-      			$libelle = $unFraisHorsForfait['libelle'];
-      			$montant = $unFraisHorsForfait['montant'];
-    		?>
-        <tr>
-          <td><?php echo $date ?></td>
-          <td><?php echo $libelle ?></td>
-          <td><?php echo $montant ?></td>
-        </tr>
-        <?php
+             echo '<td>'.$unFraisHorsForfait['date'].'</td>';
+             echo '<td>'.$unFraisHorsForfait['libelle'].'</td>';
+             echo '<td>'.$unFraisHorsForfait['montant'].'</td></tr>';
+             $totalFraisHorsForfait += $unFraisHorsForfait['montant'];
           }
   		  ?>
       </table>
+
+      <p>
+         Total frais hors forfait : <?php echo $totalFraisHorsForfait ?>
+      </p>
+
+      <div class="piedForm">
+         <p>
+            Total du mois <?php echo $numMois."-".$numAnnee?> : <?php echo ($totalFraisForfait + $totalFraisHorsForfait) ?> Euros.
+         </p>
+      </div>
     </div>
   </div>

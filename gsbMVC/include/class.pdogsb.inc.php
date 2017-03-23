@@ -163,11 +163,9 @@
         */
         public function getLesFraisForfait($idVisiteur, $mois)
         {
-            $req = "SELECT FraisForfait.id AS idfrais, FraisForfait.libelle AS libelle,
-            LigneFraisForfait.quantite AS quantite FROM LigneFraisForfait INNER JOIN FraisForfait
-            ON FraisForfait.id=LigneFraisForfait.idFraisForfait
-            WHERE LigneFraisForfait.idVisiteur='$idVisiteur' AND LigneFraisForfait.mois='$mois'
-            ORDER BY LigneFraisForfait.idFraisForfait";
+            $req = "SELECT FraisForfait.id AS idfrais, FraisForfait.libelle AS libelle, LigneFraisForfait.quantite AS quantite, FraisForfait.montant AS montant,
+            (montant*quantite) AS total FROM LigneFraisForfait INNER JOIN FraisForfait ON FraisForfait.id=LigneFraisForfait.idFraisForfait
+            WHERE LigneFraisForfait.idVisiteur='$idVisiteur' AND LigneFraisForfait.mois='$mois' ORDER BY LigneFraisForfait.idFraisForfait";
             $res = PdoGsb::$monPdo->query($req);
             $lesLignes = $res->fetchAll();
             return $lesLignes;
