@@ -7,12 +7,14 @@
       <th class="action">&nbsp;</th>
    </tr>
    <?php
+      $totalFraisHorsForfait = 0;
 	   foreach($lesFraisHorsForfait as $unFraisHorsForfait)
 		{
 			$libelle = $unFraisHorsForfait['libelle'];
 			$date = $unFraisHorsForfait['date'];
 			$montant=$unFraisHorsForfait['montant'];
 			$id = $unFraisHorsForfait['id'];
+         $totalFraisHorsForfait += $montant;
 	?>
 
    <tr>
@@ -26,6 +28,8 @@
 	?>
 
     </table>
+
+
       <form action="index.php?uc=gererFrais&action=validerCreationFrais" method="post">
          <div class="corpsForm">
             <fieldset>
@@ -47,6 +51,7 @@
 
          <div class="piedForm">
             <p>
+               Total frais forfaitisés : <?php echo $totalFraisHorsForfait ?> Euros.
                <input id="ajouter" type="submit" value="Ajouter" size="20" />
                <input id="effacer" type="reset" value="Effacer" size="20" />
             </p>

@@ -32,7 +32,7 @@
       </table>
 
       <p>
-         Total frais forfaitisés : <?php echo $totalFraisForfait ?>
+         Total frais forfaitisés : <?php echo $totalFraisForfait ?> Euros.
       </p>
 
     	<table class="listeLegere">
@@ -55,7 +55,7 @@
       </table>
 
       <p>
-         Total frais hors forfait : <?php echo $totalFraisHorsForfait ?>
+         Total frais hors forfait : <?php echo $totalFraisHorsForfait ?> Euros.
       </p>
 
       <div class="piedForm">
