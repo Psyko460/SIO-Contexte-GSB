@@ -1,28 +1,18 @@
-﻿    <!-- Division pour le sommaire -->
-    <div id="menuGauche">
-        <div id="infosUtil">
-           <h2>
-           </h2>
-        </div>
-        <ul id="menuList">
-            <li>
-                    Visiteur :<br>
-                    <?php echo $_SESSION['prenom']."  ".$_SESSION['nom'] ?>
-            </li>
-            <li class="smenu">
-                <a href="index.php?uc=gererFrais&action=saisirFrais" title="Saisie fiche de frais ">Saisie fiche de frais</a>
-            </li>
-            <li class="smenu">
-                <a href="index.php?uc=etatFrais&action=selectionnerMois" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
-            </li>
-            <li class="smenu">
-                <a href="index.php?uc=validationFrais&action=selectVisitor" title="Validation des fiches de frais">Validation fiches de frais</a>
-            </li>
-            <li class="smenu">
-                <a href="index.php?uc=suiviFrais&action=selectFicheFrais" title="Suivre paiement des fiches de frais">Paiement des fiches de frais</a>
-            </li>
-            <li class="smenu">
-                <a href="index.php?uc=connexion&action=deconnexion" title="Se déconnecter">Déconnexion</a>
-            </li>
-        </ul>
-    </div>
+<nav>
+   <div class="nav-wrapper">
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="left hide-on-med-and-down">
+         <li><a href="index.php?uc=gererFrais&action=saisirFrais">Saisie fiche de frais</a></li>
+         <li><a href="index.php?uc=etatFrais&action=selectionnerMois">Mes fiches de frais</a></li>
+         <li><a href="index.php?uc=connexion&action=deconnexion">Se déconnecter</a></li>
+      </ul>
+      <ul class="right hide-on-med-and-down">
+         <li><i class="material-icons right">perm_identity</i>Bienvenue <?php echo $_SESSION['prenom']."  ".$_SESSION['nom'] ?></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+         <li><a href="index.php?uc=gererFrais&action=saisirFrais">Saisie fiche de frais</a></li>
+         <li><a href="index.php?uc=etatFrais&action=selectionnerMois">Mes fiches de frais</a></li>
+         <li><a href="index.php?uc=connexion&action=deconnexion">Se déconnecter</a></li>
+      </ul>
+   </div>
+</nav>

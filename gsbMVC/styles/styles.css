@@ -3,10 +3,12 @@ body {
    background-color: #77AADD;
 	/*background-image: url(imgs/FONDGLOBAL.jpg);*/
 	background-repeat: repeat-x;
-   margin:0% 0%;
+   margin:0 0;
    padding : 0.6em;
    font-family:"Trebuchet MS",Verdana,Geneva,Arial,Helvetica,sans-serif;
    font-size:0.8em;
+   height: 100%;
+   width: 100%
 }
 #page {
    background-color:white;

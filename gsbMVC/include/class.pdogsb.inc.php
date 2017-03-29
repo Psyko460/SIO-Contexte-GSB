@@ -64,14 +64,57 @@
         */
         public function getInfosVisiteur($login, $mdp)
         {
-            $req = "SELECT Visiteur.id AS id, Visiteur.nom AS nom, Visiteur.prenom AS prenom, Visiteur.mdp FROM Visiteur
+            $reqVisitor = "SELECT Visiteur.id AS id, Visiteur.nom AS nom, Visiteur.prenom AS prenom, Visiteur.mdp FROM Visiteur
             WHERE Visiteur.login='$login'";
-            $rs = PdoGsb::$monPdo->query($req);
-            $ligne = $rs->fetch();
-            if (password_verify($mdp, $ligne['mdp']))
+
+            $reqComptable = "SELECT Comptable.id AS id, Comptable.nom AS nom, Comptable.prenom AS prenom, Comptable.mdp FROM Comptable
+            WHERE Comptable.login='$login'";
+
+            $rsVisitor = PdoGsb::$monPdo->query($reqVisitor);
+            $ligneVisitor = $rsVisitor->fetch();
+
+            if (password_verify($mdp, $ligneVisitor['mdp']))
             {
-                return $ligne;
+                return $ligneVisitor;
             }
+            else
+            {
+               $rsComptable = PdoGsb::$monPdo->query($reqComptable);
+               $ligneComptable = $rsComptable->fetch();
+
+               if (password_verify($mdp, $ligneComptable['mdp']))
+               {
+                   return $ligneComptable;
+               }
+            }
+        }
+
+        /**
+        * Vérifie le type d'utilisateur qui se connecte
+
+        * @param $login
+        * @param $mdp
+        * @return le rôle de l'utilisateur
+        */
+        public function getUserType($login, $mdp)
+        {
+            $query = "SELECT role AS role FROM utilisateur, visiteur WHERE visiteur.id=utilisateur.id AND utilisateur.role='Visiteur'
+               AND login='$login'";
+            $rs = PdoGsb::$monPdo->query($query);
+            $count = $rs->rowCount();
+            $result = $rs->fetch();
+
+            if ($count == 0)
+            {
+               $query = "SELECT role AS role FROM utilisateur, comptable WHERE comptable.id=utilisateur.id AND utilisateur.role='Comptable'
+                  AND login='$login'";
+               $rs = PdoGsb::$monPdo->query($query);
+               $result = $rs->fetch();
+
+               return "Comptable";
+            }
+
+            return "Visiteur";
         }
 
         /**
@@ -92,7 +135,7 @@
 
          * @return Les requêtes executées
         */
-        public function cryptPasswordDb()
+        public function cryptPasswordDbVisitors()
         {
             $alter = "ALTER TABLE `Visiteur` CHANGE COLUMN `mdp` `mdp` CHAR(255) NULL DEFAULT NULL AFTER `login`";
             PdoGsb::$monPdo->query($alter);
@@ -105,6 +148,30 @@
                 $id = $row['id'];
                 $pwd = password_hash($row['mdp'], PASSWORD_BCRYPT);
                 $req2= "UPDATE `Visiteur` SET `mdp`='$pwd' WHERE `id`='$id';";
+                $value .= $req2 . '<br>';
+                $rs2 = PdoGsb::$monPdo->query($req2);
+            }
+            return $value;
+        }
+
+        /**
+         * Encrypte les mots de passe dans la base de donnée et change Comptable.mdp CHAR(30->255)
+
+         * @return Les requêtes executées
+        */
+        public function cryptPasswordDbComptable()
+        {
+            $alter = "ALTER TABLE `Comptable` CHANGE COLUMN `mdp` `mdp` CHAR(255) NULL DEFAULT NULL AFTER `login`";
+            PdoGsb::$monPdo->query($alter);
+            $req = "SELECT id, mdp FROM Comptable";
+            $rs = PdoGsb::$monPdo->query($req);
+            $value = "";
+
+            foreach ($rs->fetchAll() as $row)
+            {
+                $id = $row['id'];
+                $pwd = password_hash($row['mdp'], PASSWORD_BCRYPT);
+                $req2= "UPDATE `Comptable` SET `mdp`='$pwd' WHERE `id`='$id';";
                 $value .= $req2 . '<br>';
                 $rs2 = PdoGsb::$monPdo->query($req2);
             }

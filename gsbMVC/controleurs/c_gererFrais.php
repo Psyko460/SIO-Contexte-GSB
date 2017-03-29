@@ -33,6 +33,7 @@
         case 'validerCreationFrais':
         {
             $dateFrais = $_REQUEST['dateFrais'];
+            error_log($dateFrais);
             $libelle = $_REQUEST['libelle'];
             $montant = $_REQUEST['montant'];
             valideInfosFrais($dateFrais,$libelle,$montant);
@@ -42,7 +43,8 @@
             }
             else
             {
-               $pdo->creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$dateFrais,$montant);
+               $englishDate = dateFrancaisVersAnglais($dateFrais);
+               $pdo->creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$englishDate,$montant);
             }
             break;
         }

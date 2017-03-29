@@ -32,7 +32,7 @@
  */
     function deconnecter()
     {
-            session_destroy();
+         session_destroy();
     }
 
     function setSelectedVisitor($id)
@@ -47,7 +47,7 @@
 */
     function dateFrancaisVersAnglais($maDate)
     {
-        @list($jour,$mois,$annee) = explode('/',$maDate);
+        @list($jour,$mois,$annee) = explode('-',$maDate);
         return date('Y-m-d',mktime(0,0,0,$mois,$jour,$annee));
     }
 /**
@@ -59,7 +59,7 @@
     function dateAnglaisVersFrancais($maDate)
     {
        @list($annee,$mois,$jour)=explode('-',$maDate);
-       $date="$jour"."/".$mois."/".$annee;
+       $date="$jour"."-".$mois."-".$annee;
        return $date;
     }
 /**
@@ -147,7 +147,7 @@
             }
             else
             {
-                if (!checkdate($tabDate[1], $tabDate[2], $tabDate[0]))
+                if (!checkdate($tabDate[1], $tabDate[0], $tabDate[2]))
                 {
                     $dateOK = false;
                 }

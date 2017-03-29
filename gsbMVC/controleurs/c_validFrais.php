@@ -1,5 +1,5 @@
 <?php
-    include("vues/v_sommaire.php");
+    include("vues/v_sommaireComptable.php");
     $mois = getMois(date("d-m-Y"));
     $action = $_REQUEST['action'];
 

@@ -1,60 +1,60 @@
-<table class="listeLegere">
-  	<caption>Descriptif des éléments hors forfait</caption>
-   <tr>
-      <th class="date">Date</th>
-		<th class="libelle">Libellé</th>
-      <th class="montant">Montant</th>
-      <th class="action">&nbsp;</th>
-   </tr>
+<h4>Descriptif des éléments hors forfait</h4>
+
+<table class="striped">
+   <thead>
+      <tr>
+         <th>Date</th>
+         <th>Libellé</th>
+         <th>Montant</th>
+         <th>Action</th>
+      </tr>
+   </thead>
+
+   <tbody>
    <?php
       $totalFraisHorsForfait = 0;
-	   foreach($lesFraisHorsForfait as $unFraisHorsForfait)
-		{
-			$libelle = $unFraisHorsForfait['libelle'];
-			$date = $unFraisHorsForfait['date'];
-			$montant=$unFraisHorsForfait['montant'];
-			$id = $unFraisHorsForfait['id'];
+      foreach($lesFraisHorsForfait as $unFraisHorsForfait)
+      {
+         $libelle = $unFraisHorsForfait['libelle'];
+         $date = $unFraisHorsForfait['date'];
+         $montant=$unFraisHorsForfait['montant'];
+         $id = $unFraisHorsForfait['id'];
          $totalFraisHorsForfait += $montant;
-	?>
+         ?>
 
-   <tr>
-      <td> <?php echo $date ?></td>
-      <td><?php echo $libelle ?></td>
-      <td><?php echo $montant ?></td>
-      <td><a href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php echo $id ?>"onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
-   </tr>
-	<?php
+         <tr>
+            <td> <?php echo $date ?></td>
+            <td><?php echo $libelle ?></td>
+            <td><?php echo $montant ?></td>
+            <td><a href="index.php?uc=gererFrais&action=supprimerFrais&idFrais=<?php echo $id ?>"onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
+         </tr>
+         <?php
       }
-	?>
+   ?>
+   </tbody>
+</table>
 
-    </table>
+<p class="right-align">Total des frais hors forfait : <?php echo $totalFraisHorsForfait ?> Euros</p>
 
+<div class="row">
+	<form class="col s12" method="POST" action="index.php?uc=gererFrais&action=validerCreationFrais">
+		<h4>Nouvel élément hors forfait</h4>
+		<div class="row">
+			<div class="input-field col s3">
+				<input type="date" class="datepicker" id="txtDateHF" name="dateFrais">
+			</div>
+      <div class="input-field col s3">
+         <input type="text" id="txtLibelleHF" name="libelle">
+         <label for="txtLibelleHF">Libellé</label>
+			</div>
+      <div class="input-field col s3">
+         <input type="text" id="txtMontantHF" name="montant">
+         <label for="txtMontantHF">Montant</label>
+			</div>
+		</div>
 
-      <form action="index.php?uc=gererFrais&action=validerCreationFrais" method="post">
-         <div class="corpsForm">
-            <fieldset>
-               <legend>Nouvel élément hors forfait</legend>
-               <p>
-                  <label for="txtDateHF">Date (jj/mm/aaaa): </label>
-                  <input type="date" id="txtDateHF" name="dateFrais" size="10" maxlength="10" value=""  />
-               </p>
-               <p>
-                  <label for="txtLibelleHF">Libellé</label>
-                  <input type="text" id="txtLibelleHF" name="libelle" size="70" maxlength="256" value="" />
-               </p>
-               <p>
-                  <label for="txtMontantHF">Montant : </label>
-                  <input type="text" id="txtMontantHF" name="montant" size="10" maxlength="10" value="" />
-               </p>
-            </fieldset>
-         </div>
-
-         <div class="piedForm">
-            <p>
-               Total frais forfaitisés : <?php echo $totalFraisHorsForfait ?> Euros.
-               <input id="ajouter" type="submit" value="Ajouter" size="20" />
-               <input id="effacer" type="reset" value="Effacer" size="20" />
-            </p>
-         </div>
-      </form>
-   </div>
+		<button class="btn waves-effect waves-light" type="submit" name="valider">Créer un nouvel élément hors forfait
+			<i class="material-icons right">send</i>
+		</button>
+	</form>
+</div>
