@@ -418,7 +418,7 @@
         public function getLesMoisDisponibles($idVisiteur)
         {
             $req = "SELECT FicheFrais.mois AS mois FROM FicheFrais WHERE FicheFrais.idVisiteur='$idVisiteur'
-            ORDER BY fichefrais.mois DESC";
+            ORDER BY FicheFrais.mois DESC";
             $res = PdoGsb::$monPdo->query($req);
             $lesMois =array();
             $laLigne = $res->fetch();
