@@ -98,7 +98,7 @@
         */
         public function getUserType($login, $mdp)
         {
-            $query = "SELECT role AS role FROM utilisateur, visiteur WHERE visiteur.id=utilisateur.id AND utilisateur.role='Visiteur'
+            $query = "SELECT role AS role FROM Utilisateur, Visiteur WHERE Visiteur.id=Utilisateur.id AND Utilisateur.role='Visiteur'
                AND login='$login'";
             $rs = PdoGsb::$monPdo->query($query);
             $count = $rs->rowCount();
@@ -106,7 +106,7 @@
 
             if ($count == 0)
             {
-               $query = "SELECT role AS role FROM utilisateur, comptable WHERE comptable.id=utilisateur.id AND utilisateur.role='Comptable'
+               $query = "SELECT role AS role FROM Utilisateur, Comptable WHERE Comptable.id=Utilisateur.id AND Utilisateur.role='Comptable'
                   AND login='$login'";
                $rs = PdoGsb::$monPdo->query($query);
                $result = $rs->fetch();
@@ -214,7 +214,7 @@
         */
         public function getNbjustificatifs($idVisiteur, $mois)
         {
-            $req = "SELECT fichefrais.nbJustificatifs AS nb FROM fichefrais WHERE fichefrais.idVisiteur='$idVisiteur' AND fichefrais.mois='$mois'";
+            $req = "SELECT FicheFrais.nbJustificatifs AS nb FROM FicheFrais WHERE FicheFrais.idVisiteur='$idVisiteur' AND FicheFrais.mois='$mois'";
             $res = PdoGsb::$monPdo->query($req);
             $laLigne = $res->fetch();
             return $laLigne['nb'];
@@ -284,8 +284,8 @@
         */
         public function majNbJustificatifs($idVisiteur, $mois, $nbJustificatifs)
         {
-            $req = "UPDATE fichefrais SET nbJustificatifs=$nbJustificatifs
-            WHERE fichefrais.idVisiteur='$idVisiteur' AND fichefrais.mois='$mois'";
+            $req = "UPDATE FicheFrais SET nbJustificatifs=$nbJustificatifs
+            WHERE FicheFrais.idVisiteur='$idVisiteur' AND FicheFrais.mois='$mois'";
             PdoGsb::$monPdo->exec($req);
         }
 
@@ -299,8 +299,8 @@
         public function estPremierFraisMois($idVisiteur,$mois)
         {
             $ok = false;
-            $req = "SELECT COUNT(*) AS nblignesfrais FROM fichefrais
-            WHERE fichefrais.mois='$mois' AND fichefrais.idVisiteur='$idVisiteur'";
+            $req = "SELECT COUNT(*) AS nblignesfrais FROM FicheFrais
+            WHERE FicheFrais.mois='$mois' AND FicheFrais.idVisiteur='$idVisiteur'";
             $res = PdoGsb::$monPdo->query($req);
             $laLigne = $res->fetch();
 
@@ -321,8 +321,8 @@
         public function hasValidatedOrInPaymentCard($idVisiteur, $mois)
         {
             $ok = false;
-            $req = "SELECT COUNT(*) AS nblignesfrais from fichefrais
-            WHERE fichefrais.mois='$mois' AND fichefrais.idVisiteur='$idVisiteur'
+            $req = "SELECT COUNT(*) AS nblignesfrais from FicheFrais
+            WHERE FicheFrais.mois='$mois' AND FicheFrais.idVisiteur='$idVisiteur'
             AND idEtat IN ('VA', 'PA', 'RB')";
             $res = PdoGsb::$monPdo->query($req);
             $laLigne = $res->fetch();
@@ -342,7 +342,7 @@
         */
         public function dernierMoisSaisi($idVisiteur)
         {
-            $req = "SELECT MAX(mois) AS dernierMois FROM fichefrais WHERE fichefrais.idVisiteur='$idVisiteur'";
+            $req = "SELECT MAX(mois) AS dernierMois FROM FicheFrais WHERE FicheFrais.idVisiteur='$idVisiteur'";
             $res = PdoGsb::$monPdo->query($req);
             $laLigne = $res->fetch();
             $dernierMois = $laLigne['dernierMois'];
@@ -367,7 +367,7 @@
                 $this->majEtatfichefrais($idVisiteur, $dernierMois,'CL');
             }
 
-            $req = "INSERT INTO fichefrais(idVisiteur,mois,nbJustificatifs,montantValide,dateModif,idEtat)
+            $req = "INSERT INTO FicheFrais(idVisiteur,mois,nbJustificatifs,montantValide,dateModif,idEtat)
             VALUES('$idVisiteur','$mois',0,0,now(),'CR')";
             PdoGsb::$monPdo->exec($req);
             $lesIdFrais = $this->getLesIdFrais();
@@ -417,7 +417,7 @@
         */
         public function getLesMoisDisponibles($idVisiteur)
         {
-            $req = "SELECT fichefrais.mois AS mois FROM fichefrais WHERE fichefrais.idVisiteur='$idVisiteur'
+            $req = "SELECT FicheFrais.mois AS mois FROM FicheFrais WHERE FicheFrais.idVisiteur='$idVisiteur'
             ORDER BY fichefrais.mois DESC";
             $res = PdoGsb::$monPdo->query($req);
             $lesMois =array();
@@ -447,9 +447,9 @@
         */
         public function getLesInfosfichefrais($idVisiteur,$mois)
         {
-            $req = "SELECT fichefrais.idEtat AS idEtat, fichefrais.dateModif AS dateModif, fichefrais.nbJustificatifs AS nbJustificatifs,
-                    fichefrais.montantValide AS montantValide, Etat.libelle AS libEtat FROM fichefrais INNER JOIN Etat ON fichefrais.idEtat=Etat.id
-                    WHERE fichefrais.idVisiteur='$idVisiteur' AND fichefrais.mois='$mois'";
+            $req = "SELECT FicheFrais.idEtat AS idEtat, FicheFrais.dateModif AS dateModif, FicheFrais.nbJustificatifs AS nbJustificatifs,
+                    FicheFrais.montantValide AS montantValide, Etat.libelle AS libEtat FROM FicheFrais INNER JOIN Etat ON FicheFrais.idEtat=Etat.id
+                    WHERE FicheFrais.idVisiteur='$idVisiteur' AND FicheFrais.mois='$mois'";
             $res = PdoGsb::$monPdo->query($req);
             $laLigne = $res->fetch();
             return $laLigne;
@@ -465,8 +465,8 @@
 
         public function majEtatfichefrais($idVisiteur,$mois,$etat)
         {
-            $req = "UPDATE fichefrais SET idEtat='$etat', dateModif = now()
-            WHERE fichefrais.idVisiteur ='$idVisiteur' AND fichefrais.mois='$mois'";
+            $req = "UPDATE FicheFrais SET idEtat='$etat', dateModif = now()
+            WHERE FicheFrais.idVisiteur ='$idVisiteur' AND FicheFrais.mois='$mois'";
             PdoGsb::$monPdo->exec($req);
         }
 
@@ -479,7 +479,7 @@
 
         public function majLibelleLigneFraisHorsForfait($idFrais, $nextMonth)
         {
-            $req = "UPDATE lignefraishorsforfait SET libelle=CONCAT('REFUSE-', libelle), mois='$nextMonth'
+            $req = "UPDATE LigneFraisHorsForfait SET libelle=CONCAT('REFUSE-', libelle), mois='$nextMonth'
             WHERE id='$idFrais'";
             PdoGsb::$monPdo->exec($req);
         }

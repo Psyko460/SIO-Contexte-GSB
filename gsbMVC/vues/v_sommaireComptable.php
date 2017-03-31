@@ -1,4 +1,4 @@
-<nav>
+<nav class="accountant_part">
    <div class="nav-wrapper">
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="left hide-on-med-and-down">

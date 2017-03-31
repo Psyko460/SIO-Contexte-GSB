@@ -1,6 +1,6 @@
  <h3>Suivi du paiement des fiches de frais</h3>
 
-   <form method="POST" action="index.php?uc=suiviFrais&amp;action=fraisDetails">
+   <form class="col s12" method="POST" action="index.php?uc=suiviFrais&amp;action=fraisDetails">
        <h4>Choisir le visiteur :</h4>
        <select name="currentVisitor">
            <?php
@@ -11,5 +11,7 @@
            ?>
        </select>
        <p>Mois : <input type="text" name="dateValid" value="<?php echo $mois ?>"></p>
-       <input id="ok" type="submit" value="Valider" size="20" />
+       <button class="btn waves-effect waves-light" type="submit" name="action_button">Valider
+         <i class="material-icons right">done</i>
+       </button>
    </form>

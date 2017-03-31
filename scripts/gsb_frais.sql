@@ -29,7 +29,7 @@ USE `gsb_frais`;
 -- Structure de la table `etat`
 --
 
-CREATE TABLE `etat` (
+CREATE TABLE `Etat` (
   `id` char(2) NOT NULL,
   `libelle` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -38,7 +38,7 @@ CREATE TABLE `etat` (
 -- Contenu de la table `etat`
 --
 
-INSERT INTO `etat` (`id`, `libelle`) VALUES
+INSERT INTO `Etat` (`id`, `libelle`) VALUES
 ('CL', 'Saisie clôturée'),
 ('CR', 'Fiche créée, saisie en cours'),
 ('PA', 'Mise en paiement'),
@@ -51,7 +51,7 @@ INSERT INTO `etat` (`id`, `libelle`) VALUES
 -- Structure de la table `fichefrais`
 --
 
-CREATE TABLE `fichefrais` (
+CREATE TABLE `FicheFrais` (
   `idVisiteur` char(4) NOT NULL,
   `mois` char(6) NOT NULL,
   `nbJustificatifs` int(11) DEFAULT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE `fichefrais` (
 -- Contenu de la table `fichefrais`
 --
 
-INSERT INTO `fichefrais` (`idVisiteur`, `mois`, `nbJustificatifs`, `montantValide`, `dateModif`, `idEtat`) VALUES
+INSERT INTO `FicheFrais` (`idVisiteur`, `mois`, `nbJustificatifs`, `montantValide`, `dateModif`, `idEtat`) VALUES
 ('a17', '', 0, '0.00', '2016-12-16', 'CR'),
 ('a17', '201612', NULL, NULL, '2016-12-17', 'RB');
 
@@ -74,7 +74,7 @@ INSERT INTO `fichefrais` (`idVisiteur`, `mois`, `nbJustificatifs`, `montantValid
 -- Structure de la table `fraisforfait`
 --
 
-CREATE TABLE `fraisforfait` (
+CREATE TABLE `FraisForfait` (
   `id` char(3) NOT NULL,
   `libelle` char(20) DEFAULT NULL,
   `montant` decimal(5,2) DEFAULT NULL
@@ -84,7 +84,7 @@ CREATE TABLE `fraisforfait` (
 -- Contenu de la table `fraisforfait`
 --
 
-INSERT INTO `fraisforfait` (`id`, `libelle`, `montant`) VALUES
+INSERT INTO `FraisForfait` (`id`, `libelle`, `montant`) VALUES
 ('ETP', 'Forfait Etape', '110.00'),
 ('KM', 'Frais Kilométrique', '0.62'),
 ('NUI', 'Nuitée Hôtel', '80.00'),
@@ -96,7 +96,7 @@ INSERT INTO `fraisforfait` (`id`, `libelle`, `montant`) VALUES
 -- Structure de la table `lignefraisforfait`
 --
 
-CREATE TABLE `lignefraisforfait` (
+CREATE TABLE `LigneFraisForfait` (
   `idVisiteur` char(4) NOT NULL,
   `mois` char(6) NOT NULL,
   `idFraisForfait` char(3) NOT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE `lignefraisforfait` (
 -- Contenu de la table `lignefraisforfait`
 --
 
-INSERT INTO `lignefraisforfait` (`idVisiteur`, `mois`, `idFraisForfait`, `quantite`) VALUES
+INSERT INTO `LigneFraisForfait` (`idVisiteur`, `mois`, `idFraisForfait`, `quantite`) VALUES
 ('a17', '201612', 'ETP', 5),
 ('a17', '201612', 'KM', 5),
 ('a17', '201612', 'NUI', 5),
@@ -119,7 +119,7 @@ INSERT INTO `lignefraisforfait` (`idVisiteur`, `mois`, `idFraisForfait`, `quanti
 -- Structure de la table `lignefraishorsforfait`
 --
 
-CREATE TABLE `lignefraishorsforfait` (
+CREATE TABLE `LigneFraisHorsForfait` (
   `id` int(11) NOT NULL,
   `idVisiteur` char(4) NOT NULL,
   `mois` char(6) NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE `lignefraishorsforfait` (
 -- Structure de la table `utilisateur`
 --
 
-CREATE TABLE `utilisateur` (
+CREATE TABLE `Utilisateur` (
   `id` char(4) NOT NULL,
   `role` char(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -143,7 +143,7 @@ CREATE TABLE `utilisateur` (
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id`, `role`) VALUES
+INSERT INTO `Utilisateur` (`id`, `role`) VALUES
 ('a131', 'Visiteur'),
 ('a17', 'Visiteur'),
 ('a55', 'Visiteur'),
@@ -179,7 +179,7 @@ INSERT INTO `utilisateur` (`id`, `role`) VALUES
 -- Structure de la table `visiteur`
 --
 
-CREATE TABLE `visiteur` (
+CREATE TABLE `Visiteur` (
   `id` char(4) NOT NULL,
   `nom` char(30) DEFAULT NULL,
   `prenom` char(30) DEFAULT NULL,
@@ -230,7 +230,7 @@ INSERT INTO `Visiteur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, 
 -- Structure de la table `comptable`
 --
 
-CREATE TABLE `comptable` (
+CREATE TABLE `Comptable` (
   `id` char(4) NOT NULL,
   `nom` char(30) DEFAULT NULL,
   `prenom` char(30) DEFAULT NULL,
@@ -242,7 +242,7 @@ CREATE TABLE `comptable` (
 -- Contenu de la table `comptable`
 --
 
-INSERT INTO `comptable` (`id`, `nom`, `prenom`, `login`, `mdp`) VALUES
+INSERT INTO `Comptable` (`id`, `nom`, `prenom`, `login`, `mdp`) VALUES
 ('z13', 'Dubois', 'Dominique', 'ddubois', 'admin');
 
 --
@@ -252,53 +252,53 @@ INSERT INTO `comptable` (`id`, `nom`, `prenom`, `login`, `mdp`) VALUES
 --
 -- Index pour la table `etat`
 --
-ALTER TABLE `etat`
+ALTER TABLE `Etat`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `fichefrais`
 --
-ALTER TABLE `fichefrais`
+ALTER TABLE `FicheFrais`
   ADD PRIMARY KEY (`idVisiteur`,`mois`),
   ADD KEY `idEtat` (`idEtat`);
 
 --
 -- Index pour la table `fraisforfait`
 --
-ALTER TABLE `fraisforfait`
+ALTER TABLE `FraisForfait`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `lignefraisforfait`
 --
-ALTER TABLE `lignefraisforfait`
+ALTER TABLE `LigneFraisForfait`
   ADD PRIMARY KEY (`idVisiteur`,`mois`,`idFraisForfait`),
   ADD KEY `idFraisForfait` (`idFraisForfait`);
 
 --
 -- Index pour la table `lignefraishorsforfait`
 --
-ALTER TABLE `lignefraishorsforfait`
+ALTER TABLE `LigneFraisHorsForfait`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idVisiteur` (`idVisiteur`,`mois`);
 
 --
 -- Index pour la table `visiteur`
 --
-ALTER TABLE `visiteur`
+ALTER TABLE `Visiteur`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `comptable`
 --
-ALTER TABLE `comptable`
+ALTER TABLE `Comptable`
  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `utilisateur`
 --
 
-ALTER TABLE `utilisateur`
+ALTER TABLE `Utilisateur`
    ADD PRIMARY KEY (`id`);
 
 --
@@ -308,7 +308,7 @@ ALTER TABLE `utilisateur`
 --
 -- AUTO_INCREMENT pour la table `lignefraishorsforfait`
 --
-ALTER TABLE `lignefraishorsforfait`
+ALTER TABLE `LigneFraisHorsForfait`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
@@ -317,34 +317,34 @@ ALTER TABLE `lignefraishorsforfait`
 --
 -- Contraintes pour la table `visiteur`
 --
-ALTER TABLE `visiteur`
-  ADD CONSTRAINT `visiteur_ibfk_1` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`);
+ALTER TABLE `Visiteur`
+  ADD CONSTRAINT `visiteur_ibfk_1` FOREIGN KEY (`id`) REFERENCES `Utilisateur` (`id`);
 
 --
 -- Contraintes pour la table `comptable`
 --
-ALTER TABLE `comptable`
- ADD CONSTRAINT `comptable_ibfk_1` FOREIGN KEY (`id`) REFERENCES `utilisateur` (`id`);
+ALTER TABLE `Comptable`
+ ADD CONSTRAINT `comptable_ibfk_1` FOREIGN KEY (`id`) REFERENCES `Utilisateur` (`id`);
 
 --
 -- Contraintes pour la table `fichefrais`
 --
-ALTER TABLE `fichefrais`
-  ADD CONSTRAINT `fichefrais_ibfk_1` FOREIGN KEY (`idEtat`) REFERENCES `etat` (`id`),
-  ADD CONSTRAINT `fichefrais_ibfk_2` FOREIGN KEY (`idVisiteur`) REFERENCES `visiteur` (`id`);
+ALTER TABLE `FicheFrais`
+  ADD CONSTRAINT `fichefrais_ibfk_1` FOREIGN KEY (`idEtat`) REFERENCES `Etat` (`id`),
+  ADD CONSTRAINT `fichefrais_ibfk_2` FOREIGN KEY (`idVisiteur`) REFERENCES `Visiteur` (`id`);
 
 --
 -- Contraintes pour la table `lignefraisforfait`
 --
-ALTER TABLE `lignefraisforfait`
-  ADD CONSTRAINT `lignefraisforfait_ibfk_1` FOREIGN KEY (`idVisiteur`,`mois`) REFERENCES `fichefrais` (`idVisiteur`, `mois`),
-  ADD CONSTRAINT `lignefraisforfait_ibfk_2` FOREIGN KEY (`idFraisForfait`) REFERENCES `fraisforfait` (`id`);
+ALTER TABLE `LigneFraisForfait`
+  ADD CONSTRAINT `lignefraisforfait_ibfk_1` FOREIGN KEY (`idVisiteur`,`mois`) REFERENCES `FicheFrais` (`idVisiteur`, `mois`),
+  ADD CONSTRAINT `lignefraisforfait_ibfk_2` FOREIGN KEY (`idFraisForfait`) REFERENCES `FraisForfait` (`id`);
 
 --
 -- Contraintes pour la table `lignefraishorsforfait`
 --
-ALTER TABLE `lignefraishorsforfait`
-  ADD CONSTRAINT `lignefraishorsforfait_ibfk_1` FOREIGN KEY (`idVisiteur`,`mois`) REFERENCES `fichefrais` (`idVisiteur`, `mois`);
+ALTER TABLE `LigneFraisHorsForfait`
+  ADD CONSTRAINT `lignefraishorsforfait_ibfk_1` FOREIGN KEY (`idVisiteur`,`mois`) REFERENCES `FicheFrais` (`idVisiteur`, `mois`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

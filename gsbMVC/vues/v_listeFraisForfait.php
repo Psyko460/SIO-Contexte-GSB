@@ -1,8 +1,6 @@
    <h3>Renseigner ma fiche de frais du mois <?php echo $numMois."-".$numAnnee ?></h3>
-   <div class="row">
    	<form class="col s12" method="POST" action="index.php?uc=gererFrais&action=validerMajFraisForfait">
    		<h4>Eléments forfaitisés</h4>
-   		<div class="row">
 
          <?php
             $totalFraisForfait = 0;
@@ -28,5 +26,5 @@
    			<i class="material-icons right">send</i>
    		</button>
    	</form>
-   </div>
+
    <p class="right-align">Total des frais forfaitisés : <?php echo $totalFraisForfait ?> Euros</p>
