@@ -118,11 +118,11 @@
 */
     function estDateDepassee($dateTestee)
     {
-        $dateActuelle=date("d/m/Y");
-        @list($jour,$mois,$annee) = explode('/',$dateActuelle);
+        $dateActuelle=date("d-m-Y");
+        @list($jour,$mois,$annee) = explode('-',$dateActuelle);
         $annee--;
         $AnPasse = $annee.$mois.$jour;
-        @list($jourTeste,$moisTeste,$anneeTeste) = explode('/',$dateTestee);
+        @list($jourTeste,$moisTeste,$anneeTeste) = explode('-',$dateTestee);
         return ($anneeTeste.$moisTeste.$jourTeste < $AnPasse);
     }
 /**
