@@ -1,25 +1,30 @@
-            <form method="POST" action="index.php?uc=validationFrais&amp;action=updateFicheFrais">
-                <table class="listeLegere">
-                <caption>Frais au forfait</caption>
-                <tr>
-                    <th class="etape">Forfait étape</th>
-                    <th class="kilometre">Frais kilométrique</th>
-                    <th class="nuitee">Nuitée hôtel</th>
-                    <th class="repas_midi">Repas restaurant</th>
-                </tr>
-                <tr>
-                    <?php
-                        foreach($lesFraisForfait as $unFraisForfait)
-                        {
-                            echo '<td><input type="text" name="lesFrais['.$unFraisForfait['idfrais'].']" value="'.$unFraisForfait['quantite'].'" size="15"></td>';
-                        }
-                    ?>
-                </tr>
-                </table>
+<form class="col s12" method="POST" action="index.php?uc=validationFrais&amp;action=updateFicheFrais">
+    <h4>Frais au forfait</h4>
+    <div class="row">
+       <?php
+           $totalFraisForfait = 0;
+           foreach($lesFraisForfait as $unFraisForfait)
+           {
+              $idFrais = $unFraisForfait['idfrais'];
+              $libelle = $unFraisForfait['libelle'];
+              $montant = $unFraisForfait['montant'];
+              $quantite = $unFraisForfait['quantite'];
+              $total = $unFraisForfait['total'];
+              $totalFraisForfait += $total;
+              ?>
+              <div class="input-field col s3">
+                 <label for="idFrais"><?php echo $libelle ?> (<?php echo $montant ?> Euros) : </label>
+                 <input type="text" id="idFrais" name="lesFrais[<?php echo $idFrais?>]" size="10" maxlength="5" value="<?php echo $quantite ?>" > soit un total de <?php echo $total ?> Euros.
+                 <br/><br/>
+              </div>
+              <?php
+           }
+           ?>
 
-                <div class="piedForm">
-                    <p>
-                        <input type="submit" value="Mettre à jour" size="20" />
-                    </p>
-                </div>
-            </form>
+       <p class="right-align">Total des frais forfaitisés : <?php echo $totalFraisForfait ?> Euros</p>
+
+       <button class="btn waves-effect waves-light" type="submit" name="valider">Mettre à jour
+          <i class="material-icons right">send</i>
+       </button>
+    </form>
+ </div>

@@ -11,7 +11,7 @@
            ?>
        </select>
        <p>Mois : <input type="text" name="dateValid" value="<?php echo $mois ?>"></p>
-       <button class="btn waves-effect waves-light" type="submit" name="action_button">Valider
-         <i class="material-icons right">done</i>
+       <button class="btn waves-effect waves-light" type="submit" name="action_button">Choisir ce visiteur pour ce mois
+         <i class="material-icons right">info_outline</i>
        </button>
    </form>

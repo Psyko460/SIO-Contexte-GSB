@@ -1,4 +1,4 @@
- <h3>Frais hors forfait</h3>
+ <h4>Frais hors forfait</h4>
 
  <table class="striped">
     <thead>
@@ -12,8 +12,12 @@
 
     <tbody>
       <?php
+         $totalFraisHorsForfait = 0;
          foreach($lesFraisHorsForfait as $unFraisHorsForfait)
          {
+            $montant=$unFraisHorsForfait['montant'];
+            $totalFraisHorsForfait += $montant;
+
             echo '<tr><td>'.$unFraisHorsForfait['date'].'</td>';
             echo '<td>'.$unFraisHorsForfait['libelle'].'</td>';
             echo '<td>'.$unFraisHorsForfait['montant'].'</td>';
@@ -22,6 +26,8 @@
       ?>
     </tbody>
  </table>
+
+<p class="right-align">Total des frais hors forfait : <?php echo $totalFraisHorsForfait ?> Euros</p>
 
 <form class="col s12" method="POST" action="index.php?uc=validationFrais&amp;action=finalValidateFiche">
    <br><br>

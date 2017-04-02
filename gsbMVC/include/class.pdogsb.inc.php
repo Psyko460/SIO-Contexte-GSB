@@ -178,6 +178,70 @@
             return $value;
         }
 
+        public function getAllFichesFrais($idVisiteur)
+        {
+           $req = "SELECT nbJustificatifs, montantValide, dateModif, libelle FROM FicheFrais, Etat WHERE idVisiteur = '$idVisiteur'
+              AND FicheFrais.idEtat = Etat.id";
+           $res = PdoGsb::$monPdo->query($req);
+           $lesLignes = $res->fetchAll();
+           $nbLignes = count($lesLignes);
+
+           for ($i=0; $i<$nbLignes; $i++)
+           {
+               $date = $lesLignes[$i]['dateModif'];
+               $lesLignes[$i]['dateModif'] =  dateAnglaisVersFrancais($date);
+           }
+           return $lesLignes;
+        }
+
+        public function getFichesFraisInPayment($idVisiteur)
+        {
+           $req = "SELECT nbJustificatifs, montantValide, dateModif, libelle FROM FicheFrais, Etat WHERE idVisiteur = '$idVisiteur'
+              AND FicheFrais.idEtat = Etat.id AND idEtat='PA'";
+           $res = PdoGsb::$monPdo->query($req);
+           $lesLignes = $res->fetchAll();
+           $nbLignes = count($lesLignes);
+
+           for ($i=0; $i<$nbLignes; $i++)
+           {
+               $date = $lesLignes[$i]['dateModif'];
+               $lesLignes[$i]['dateModif'] =  dateAnglaisVersFrancais($date);
+           }
+           return $lesLignes;
+        }
+
+        public function getFichesFraisRefunded($idVisiteur)
+        {
+           $req = "SELECT nbJustificatifs, montantValide, dateModif, libelle FROM FicheFrais, Etat WHERE idVisiteur = '$idVisiteur'
+              AND FicheFrais.idEtat = Etat.id AND idEtat='RB'";
+           $res = PdoGsb::$monPdo->query($req);
+           $lesLignes = $res->fetchAll();
+           $nbLignes = count($lesLignes);
+
+           for ($i=0; $i<$nbLignes; $i++)
+           {
+               $date = $lesLignes[$i]['dateModif'];
+               $lesLignes[$i]['dateModif'] =  dateAnglaisVersFrancais($date);
+           }
+           return $lesLignes;
+        }
+
+        public function getFichesFraisValidated($idVisiteur)
+        {
+           $req = "SELECT nbJustificatifs, montantValide, dateModif, libelle FROM FicheFrais, Etat WHERE idVisiteur = '$idVisiteur'
+              AND FicheFrais.idEtat = Etat.id AND idEtat='VA'";
+           $res = PdoGsb::$monPdo->query($req);
+           $lesLignes = $res->fetchAll();
+           $nbLignes = count($lesLignes);
+
+           for ($i=0; $i<$nbLignes; $i++)
+           {
+               $date = $lesLignes[$i]['dateModif'];
+               $lesLignes[$i]['dateModif'] =  dateAnglaisVersFrancais($date);
+           }
+           return $lesLignes;
+        }
+
         /**
          * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
          * concernées par les deux arguments
