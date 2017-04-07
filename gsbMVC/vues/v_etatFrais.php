@@ -46,7 +46,11 @@
                echo '<td>'.$unFraisHorsForfait['date'].'</td>';
                echo '<td>'.$unFraisHorsForfait['libelle'].'</td>';
                echo '<td>'.$unFraisHorsForfait['montant'].'</td></tr>';
-               $totalFraisHorsForfait += $unFraisHorsForfait['montant'];
+
+               if (!strstr($unFraisHorsForfait['libelle'], 'REFUSE'))
+               {
+                  $totalFraisHorsForfait += $unFraisHorsForfait['montant'];
+               }
             }
          ?>
      </tbody>

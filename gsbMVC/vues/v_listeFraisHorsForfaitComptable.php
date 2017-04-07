@@ -11,19 +11,27 @@
     </thead>
 
     <tbody>
-      <?php
-         $totalFraisHorsForfait = 0;
-         foreach($lesFraisHorsForfait as $unFraisHorsForfait)
-         {
-            $montant=$unFraisHorsForfait['montant'];
-            $totalFraisHorsForfait += $montant;
+      <tr>
+         <?php
+            $totalFraisHorsForfait = 0;
+            foreach($lesFraisHorsForfait as $unFraisHorsForfait)
+            {
+               echo '<tr><td>'.$unFraisHorsForfait['date'].'</td>';
+               echo '<td>'.$unFraisHorsForfait['libelle'].'</td>';
+               echo '<td>'.$unFraisHorsForfait['montant'].'</td>';
 
-            echo '<tr><td>'.$unFraisHorsForfait['date'].'</td>';
-            echo '<td>'.$unFraisHorsForfait['libelle'].'</td>';
-            echo '<td>'.$unFraisHorsForfait['montant'].'</td>';
-            echo '<td><a href="index.php?uc=validationFrais&amp;action=deleteFicheHorsForfait&amp;ficheIDToDelete='.$unFraisHorsForfait['id'].'">Supprimer la ligne</a></td>';
-         }
-      ?>
+               if (!strstr($unFraisHorsForfait['libelle'], 'REFUSE'))
+               {
+                  $totalFraisHorsForfait += $unFraisHorsForfait['montant'];
+                  echo '<td><a href="index.php?uc=validationFrais&amp;action=deleteFicheHorsForfait&amp;ficheIDToDelete='.$unFraisHorsForfait['id'].'">Supprimer la ligne</a></td>';
+               }
+               else
+               {
+                  echo '<td>/</td>';
+               }
+            }
+         ?>
+      </tr>
     </tbody>
  </table>
 

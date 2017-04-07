@@ -8,9 +8,6 @@
         case 'selectionnerMois':
         {
             $lesMois=$pdo->getLesMoisDisponibles($idVisiteur);
-            // Afin de s�lectionner par d�faut le dernier mois dans la zone de liste
-            // on demande toutes les cl�s, et on prend la premi�re,
-            // les mois �tant tri�s d�croissants
             $lesCles = array_keys( $lesMois );
             $moisASelectionner = $lesCles[0];
             include("vues/v_listeMois.php");

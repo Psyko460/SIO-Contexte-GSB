@@ -541,9 +541,9 @@
          * @param $idFrais
          */
 
-        public function majLibelleLigneFraisHorsForfait($idFrais, $nextMonth)
+        public function majLibelleLigneFraisHorsForfait($idFrais)
         {
-            $req = "UPDATE LigneFraisHorsForfait SET libelle=CONCAT('REFUSE-', libelle), mois='$nextMonth'
+            $req = "UPDATE LigneFraisHorsForfait SET libelle=CONCAT('REFUSE - ', libelle)
             WHERE id='$idFrais'";
             PdoGsb::$monPdo->exec($req);
         }

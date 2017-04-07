@@ -33,7 +33,6 @@
         case 'validerCreationFrais':
         {
             $dateFrais = $_REQUEST['dateFrais'];
-            error_log($dateFrais);
             $libelle = $_REQUEST['libelle'];
             $montant = $_REQUEST['montant'];
             valideInfosFrais($dateFrais,$libelle,$montant);
