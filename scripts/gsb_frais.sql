@@ -245,6 +245,80 @@ CREATE TABLE `Comptable` (
 INSERT INTO `Comptable` (`id`, `nom`, `prenom`, `login`, `mdp`) VALUES
 ('z13', 'Dubois', 'Dominique', 'ddubois', 'admin');
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fournisseur`
+--
+
+CREATE TABLE `Fournisseur` (
+  `id` char(4) NOT NULL,
+  `nom` char(30) DEFAULT NULL,
+  `adresse` char(30) DEFAULT NULL,
+  `cp` char(5) DEFAULT NULL,
+  `ville` char(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `comptable`
+--
+
+INSERT INTO `Fournisseur` (`id`, `nom`, `adresse`, `cp`, `ville`) VALUES
+('1', 'Medicamos', '4 Rue Schoch', '67042', 'Strasbourg'),
+('2', 'Perixomus', '2 Rue du Doubs', '67000', 'Strasbourg');
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `médicament`
+--
+
+CREATE TABLE `Medicament` (
+  `id` int(11) NOT NULL,
+  `libelle` varchar(100) DEFAULT NULL,
+  `composition` varchar(255) DEFAULT NULL,
+  `effets` varchar(255) DEFAULT NULL,
+  `posologie` varchar(255) DEFAULT NULL,
+  `prix` float DEFAULT NULL,
+  `tauxRemboursement` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `médicament`
+--
+
+INSERT INTO `Medicament` (`id`, `libelle`, `composition`, `effets`, `posologie`, `prix`, `tauxRemboursement`) VALUES
+('1', 'Codoliprane', 'Codéine, paracétamol', 'Somnolence', '1g 4x par jour', '1.59', '65'),
+('2', 'Gaviscon', 'Alginate de sodium, carbonate de calcium', 'Constipation', '1 sachet 3-4x par jour', '1.53', '15'),
+('3', 'Smecta', 'Diosmectite, glucose', 'Flatulences', '6 sachets par jour', '6.39', '30'),
+('4', 'Ginkor', 'Ginkgo biloba, heptaminol chloryhdrate', 'Maux de tête', '2 gélules par jour', '1.59', '0'),
+('5', 'Stablon', 'Tianeptine sodique', 'Tachycardie', '1 comprimé 3x par jour', '7.06', '65');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commander`
+--
+
+CREATE TABLE `Commander` (
+  `id` int(11) NOT NULL,
+  `idComptable` char(4) DEFAULT NULL,
+  `idMedicament` int(11) DEFAULT NULL,
+  `idFournisseur` char(4) DEFAULT NULL,
+  `quantite` int(11) DEFAULT NULL,
+  `montant` float DEFAULT NULL,
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `commander`
+--
+
+INSERT INTO `Commander` (`id`, `idComptable`, `idMedicament`, `idFournisseur`, `quantite`, `montant`, `date`) VALUES
+('1', 'z13', '2', '1', '12', '18.36', NOW());
+
+
 --
 -- Index pour les tables exportées
 --
@@ -302,6 +376,26 @@ ALTER TABLE `Utilisateur`
    ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `fournisseur`
+--
+ALTER TABLE `Fournisseur`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `médicament`
+--
+
+ALTER TABLE `Medicament`
+   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `commander`
+--
+
+ALTER TABLE `Commander`
+   ADD PRIMARY KEY (`id`, `idComptable`, `idMedicament`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -310,6 +404,19 @@ ALTER TABLE `Utilisateur`
 --
 ALTER TABLE `LigneFraisHorsForfait`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `médicament`
+--
+ALTER TABLE `Medicament`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `commander`
+--
+ALTER TABLE `Commander`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Contraintes pour les tables exportées
 --
@@ -325,6 +432,14 @@ ALTER TABLE `Visiteur`
 --
 ALTER TABLE `Comptable`
  ADD CONSTRAINT `comptable_ibfk_1` FOREIGN KEY (`id`) REFERENCES `Utilisateur` (`id`);
+
+--
+-- Contraintes pour la table `commander`
+--
+ALTER TABLE `Commander`
+  ADD CONSTRAINT `commander_ibfk_1` FOREIGN KEY (`idComptable`) REFERENCES `Comptable` (`id`),
+  ADD CONSTRAINT `commander_ibfk_2` FOREIGN KEY (`idMedicament`) REFERENCES `Medicament` (`id`),
+  ADD CONSTRAINT `commander_ibfk_3` FOREIGN KEY (`idFournisseur`) REFERENCES `Fournisseur` (`id`);
 
 --
 -- Contraintes pour la table `fichefrais`

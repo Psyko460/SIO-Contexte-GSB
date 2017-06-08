@@ -71,7 +71,8 @@
         {
             $idVisiteur = $_SESSION['currentVisitor'];
             $etat = 'VA';
-            $pdo->majEtatfichefrais($idVisiteur, $mois, $etat);
+            $montantValide = $_REQUEST['montantValide'];
+            $pdo->majEtatfichefrais($idVisiteur, $mois, $etat, $montantValide);
 
             $lesVisiteurs = $pdo->getLesVisiteurs();
             include("vues/v_listeVisiteurs.php");

@@ -2,7 +2,7 @@
    Etat : <?php echo $libEtat ?> depuis le <?php echo $dateModif?> <br> Montant validé : <?php echo $montantValide ?>
 
    <h4>Eléments forfaitisés</h4>
-   <table class="striped">
+   <table class="striped bordered">
       <thead>
          <tr>
             <th>Frais forfaitaires</th>
@@ -29,7 +29,7 @@
    <p class="right-align">Total des frais forfaitisés : <?php echo $totalFraisForfait ?> Euros</p>
 
   <h4>Descriptif des éléments hors forfait - <?php echo $nbJustificatifs ?> justificatifs reçus -</h4>
-  <table class="striped">
+  <table class="striped bordered">
      <thead>
         <tr>
            <th>Date</th>

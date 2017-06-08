@@ -20,11 +20,11 @@
               <?php
            }
            ?>
+    </div>
+    <p class="right-align">Total des frais forfaitisés : <?php echo $totalFraisForfait ?> Euros</p>
 
-       <p class="right-align">Total des frais forfaitisés : <?php echo $totalFraisForfait ?> Euros</p>
-
-       <button class="btn waves-effect waves-light" type="submit" name="valider">Mettre à jour
-          <i class="material-icons right">send</i>
-       </button>
-    </form>
- </div>
+    <button class="btn waves-effect waves-light" type="submit" name="valider">Mettre à jour
+        <i class="material-icons right">send</i>
+    </button>
+</form>
+ 

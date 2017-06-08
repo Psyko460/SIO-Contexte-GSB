@@ -1,6 +1,6 @@
  <h4>Frais hors forfait</h4>
 
- <table class="striped">
+ <table class="striped bordered">
     <thead>
        <tr>
           <th>Date</th>
@@ -39,6 +39,7 @@
 
 <form class="col s12" method="POST" action="index.php?uc=validationFrais&amp;action=finalValidateFiche">
    <br><br>
+   <input type="hidden" name="montantValide" value="<?php echo $totalFraisForfait + $totalFraisHorsForfait ?>"></input>
    <button class="btn waves-effect waves-light" type="submit" name="valider">Valider la fiche
       <i class="material-icons right">done</i>
    </button>

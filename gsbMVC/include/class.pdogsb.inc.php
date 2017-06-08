@@ -131,6 +131,20 @@
         }
 
         /**
+         * Retourne les informations du compte d'un visiteur passé en paramètre'
+         * @param $idVisiteur
+         * @return le rôle, le nom, le prénom, le login, l'adresse, le CP, la ville, la date d'embauche, ainsi que l'e-mail
+        */
+        public function getAccountInformations($idVisiteur)
+        {
+            $req = "SELECT role, nom, prenom, login, adresse, cp, ville, dateEmbauche FROM Utilisateur, Visiteur
+                WHERE Utilisateur.id = Visiteur.id AND Utilisateur.id = '$idVisiteur'";
+            $res = PdoGsb::$monPdo->query($req);
+            $laLigne = $res->fetch();
+            return $laLigne;
+        }
+
+        /**
          * Encrypte les mots de passe dans la base de donnée et change Visiteur.mdp CHAR(30->255)
 
          * @return Les requêtes executées
@@ -239,6 +253,35 @@
                $date = $lesLignes[$i]['dateModif'];
                $lesLignes[$i]['dateModif'] =  dateAnglaisVersFrancais($date);
            }
+           return $lesLignes;
+        }
+
+        public function getAllMedicines()
+        {
+           $req = "SELECT * FROM Medicament";
+           $res = PdoGsb::$monPdo->query($req);
+           $lesLignes = $res->fetchAll();
+           
+           return $lesLignes;
+        }
+
+        public function getAllFournisseurs()
+        {
+           $req = "SELECT * FROM Fournisseur";
+           $res = PdoGsb::$monPdo->query($req);
+           $lesLignes = $res->fetchAll();
+           
+           return $lesLignes;
+        }
+
+        public function getAllOrders()
+        {
+           $req = "SELECT Compt.prenom, Compt.nom, M.libelle, F.nom AS nomFournisseur, C.quantite, C.montant, C.date 
+              FROM Comptable Compt, Medicament M, Fournisseur F, Commander C
+              WHERE C.idComptable = Compt.id AND C.idMedicament = M.id AND C.idFournisseur = F.id";
+           $res = PdoGsb::$monPdo->query($req);
+           $lesLignes = $res->fetchAll();
+           
            return $lesLignes;
         }
 
@@ -520,17 +563,17 @@
         }
 
         /**
-         * Modifie l'état et la date de modification d'une fiche de frais
+         * Modifie l'état, le montant, et la date de modification d'une fiche de frais
 
-         * Modifie le champ idEtat et met la date de modif à aujourd'hui
+         * Modifie le champ idEtat, le champ montantValide, et met la date de modif à aujourd'hui
          * @param $idVisiteur
          * @param $mois sous la forme aaaamm
          */
 
-        public function majEtatfichefrais($idVisiteur,$mois,$etat)
+        public function majEtatfichefrais($idVisiteur, $mois, $etat, $montantValide)
         {
-            $req = "UPDATE FicheFrais SET idEtat='$etat', dateModif = now()
-            WHERE FicheFrais.idVisiteur ='$idVisiteur' AND FicheFrais.mois='$mois'";
+            $req = "UPDATE FicheFrais SET idEtat='$etat', dateModif = now(), montantValide='$montantValide'
+                WHERE FicheFrais.idVisiteur ='$idVisiteur' AND FicheFrais.mois='$mois'";
             PdoGsb::$monPdo->exec($req);
         }
 
@@ -544,7 +587,30 @@
         public function majLibelleLigneFraisHorsForfait($idFrais)
         {
             $req = "UPDATE LigneFraisHorsForfait SET libelle=CONCAT('REFUSE - ', libelle)
-            WHERE id='$idFrais'";
+                WHERE id='$idFrais'";
+            PdoGsb::$monPdo->exec($req);
+        }
+
+        public function getMedicinePrice($idMedicine)
+        {
+            $req = "SELECT prix FROM Medicament WHERE id=$idMedicine";
+            $res = PdoGsb::$monPdo->query($req);
+            $laLigne = $res->fetch();
+           
+            return $laLigne['prix'];
+        }
+
+        public function addNewMedicine($libelle, $composition, $effets, $posologie, $prix, $tauxRemboursement)
+        {
+            $req = "INSERT INTO Medicament (libelle, composition, effets, posologie, prix, tauxRemboursement)
+                VALUES('$libelle', '$composition', '$effets', '$posologie', $prix, $tauxRemboursement)";
+            PdoGsb::$monPdo->exec($req);
+        }
+
+        public function addNewOrder($idComptable, $idMedicine, $idFournisseur, $amount, $price)
+        {
+            $req = "INSERT INTO Commander (idComptable, idMedicament, idFournisseur, quantite, montant, date)
+                VALUES('$idComptable', $idMedicine, $idFournisseur, $amount, $price, NOW())";
             PdoGsb::$monPdo->exec($req);
         }
     }

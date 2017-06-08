@@ -1,6 +1,6 @@
 <h4>Descriptif des éléments hors forfait</h4>
 
-<table class="striped">
+<table class="striped bordered">
    <thead>
       <tr>
          <th>Date</th>

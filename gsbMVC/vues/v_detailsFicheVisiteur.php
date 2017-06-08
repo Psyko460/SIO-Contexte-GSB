@@ -2,7 +2,7 @@
     <p>Etat : <?php echo $infos['libEtat'] ?> depuis le <?php echo $infos['dateModif'] ?></p>
     <h4>Frais au forfait</h4>
 
-    <table class="striped">
+    <table class="striped bordered">
        <thead>
           <tr>
              <th>Forfait étape</th>
@@ -30,7 +30,7 @@
 
     <h4>Frais hors forfait</h4>
 
-    <table class="striped">
+    <table class="striped bordered">
        <thead>
           <tr>
              <th>Date</th>
